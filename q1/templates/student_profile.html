@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>ประวัตินักเรียน</h2>
+<div>
+  <b>{{ student.title }} {{ student.first_name }} {{ student.last_name }}</b><br>
+  รหัสนักเรียน: {{ student.student_id }}<br>
+  โรงเรียน: {{ student.school }}<br>
+  อีเมล: {{ student.email }}<br>
+  วันเกิด: {{ student.birthdate }}{% if not admin_view %} (อายุ ≥ 15? {{ 'ผ่าน' if age_ok else 'ไม่ผ่าน' }}){% endif %}<br>
+  หลักสูตร: {{ student.curriculum_id }}
+</div>
+<hr>
+<h3>วิชาที่ลงแล้ว & เกรด</h3>
+<table border="1" cellpadding="6">
+  <tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>หน่วยกิต</th><th>เกรด</th></tr>
+  {% for r in rows %}
+  <tr>
+    <td>{{ r.subject_id }}</td>
+    <td>{{ r.name }}</td>
+    <td>{{ r.credits }}</td>
+    <td>{{ r.grade }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

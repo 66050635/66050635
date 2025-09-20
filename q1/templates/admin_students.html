@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>หน้ารวมนักเรียน (Admin)</h2>
+<form method="get">
+  <input name="q" placeholder="ค้นหาชื่อหรือรหัส" value="{{ q }}">
+  <input name="school" placeholder="กรองโรงเรียน" value="{{ school }}">
+  <select name="sort">
+    <option value="">--เรียงลำดับ--</option>
+    <option value="name" {% if sort=='name' %}selected{% endif %}>ชื่อ</option>
+    <option value="age" {% if sort=='age' %}selected{% endif %}>อายุ</option>
+  </select>
+  <button type="submit">ค้นหา</button>
+</form>
+<table border="1" cellpadding="6">
+  <tr><th>รหัส</th><th>ชื่อ</th><th>โรงเรียน</th><th>ดูประวัติ</th></tr>
+  {% for s in rows %}
+  <tr>
+    <td>{{ s.student_id }}</td>
+    <td>{{ s.first_name }} {{ s.last_name }}</td>
+    <td>{{ s.school }}</td>
+    <td><a href="{{ url_for('admin.student_detail', student_id=s.student_id) }}">เปิด</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

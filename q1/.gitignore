@@ -1,0 +1,17 @@
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS/editor junk
+.DS_Store
+*.log
+
+# Local data generated at runtime
+data/db.json

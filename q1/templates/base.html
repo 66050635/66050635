@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <title>Pre-Enroll MVC</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<nav>
+  {% if session.get('role') == 'admin' %}
+    <a href="{{ url_for('admin.students') }}">หน้ารวมนักเรียน</a> |
+    <a href="{{ url_for('admin.grade_entry') }}">กรอกเกรด</a> |
+  {% elif session.get('role') == 'student' %}
+    <a href="{{ url_for('student.profile') }}">ประวัตินักเรียน</a> |
+    <a href="{{ url_for('reg.courses') }}">ลงทะเบียนเรียน</a> |
+  {% endif %}
+  {% if session.get('email') %}
+    <span style="opacity:.7">{{ session.get('email') }}</span> |
+    <a href="{{ url_for('auth.logout') }}">ออกจากระบบ</a>
+  {% endif %}
+</nav>
+<hr>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flash">
+      {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</body>
+</html>

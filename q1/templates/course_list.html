@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>ลงทะเบียนเรียน (วิชาที่ยังไม่ได้ลง)</h2>
+<h3>เทอม 1</h3>
+<table border="1" cellpadding="6">
+  <tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>หน่วยกิต</th><th>Prereq</th><th>ลงทะเบียน</th></tr>
+  {% for r in rows if r.term == 1 %}
+  <tr>
+    <td>{{ r.subject_id }}</td>
+    <td>{{ r.name }}</td>
+    <td>{{ r.credits }}</td>
+    <td>{{ r.prereq or '-' }}</td>
+    <td>
+      {% if r.can_register %}
+      <form method="post" action="{{ url_for('reg.do_register') }}">
+        <input type="hidden" name="subject_id" value="{{ r.subject_id }}">
+        <button type="submit">ลงทะเบียน</button>
+      </form>
+      {% else %}
+        <i>ยังไม่ผ่านวิชาบังคับก่อน</i>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<h3>เทอม 2</h3>
+<table border="1" cellpadding="6">
+  <tr><th>รหัสวิชา</th><th>ชื่อวิชา</th><th>หน่วยกิต</th><th>Prereq</th><th>ลงทะเบียน</th></tr>
+  {% for r in rows if r.term == 2 %}
+  <tr>
+    <td>{{ r.subject_id }}</td>
+    <td>{{ r.name }}</td>
+    <td>{{ r.credits }}</td>
+    <td>{{ r.prereq or '-' }}</td>
+    <td>
+      {% if r.can_register %}
+      <form method="post" action="{{ url_for('reg.do_register') }}">
+        <input type="hidden" name="subject_id" value="{{ r.subject_id }}">
+        <button type="submit">ลงทะเบียน</button>
+      </form>
+      {% else %}
+        <i>ยังไม่ผ่านวิชาบังคับก่อน</i>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>กรอกเกรดรายวิชา (Admin)</h2>
+<form method="get">
+  <label>เลือกวิชา:</label>
+  <select name="subject_id">
+    {% for s in subjects %}
+      <option value="{{ s.subject_id }}" {% if selected==s.subject_id %}selected{% endif %}>{{ s.subject_id }} - {{ s.name }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">แสดงนักเรียนที่ลงทะเบียน</button>
+</form>
+{% if selected %}
+<hr>
+<p><b>จำนวนผู้ลงทะเบียนในวิชานี้:</b> {{ students_rows|length }} คน</p>
+<form method="post">
+  <input type="hidden" name="subject_id" value="{{ selected }}">
+  <table border="1" cellpadding="6">
+    <tr><th>รหัสนักเรียน</th><th>ชื่อ</th><th>เกรด (A,B+,B,C+,C,D+,D,F)</th></tr>
+    {% for r in students_rows %}
+    <tr>
+      <td>{{ r.student_id }}</td>
+      <td>{{ r.name }}</td>
+      <td><input name="sid_{{ r.student_id }}" value="{{ r.grade }}"></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  <button type="submit">บันทึก</button>
+</form>
+{% endif %}
+{% endblock %}
